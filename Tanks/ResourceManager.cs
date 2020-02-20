@@ -1,15 +1,7 @@
-﻿using SharpDX.Direct3D11;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Tanks.Graphics;
-using VertexShader = Tanks.Graphics.VertexShader;
-using PixelShader = Tanks.Graphics.PixelShader;
-
+using SharpDX.Direct3D9;
 
 namespace Tanks
 {
@@ -18,6 +10,12 @@ namespace Tanks
 		ResourceManager() { }
 		static ResourceManager instance;
 		static object locker = new object();
+
+		internal Texture GetTexture(string name)
+		{
+			return textures[name];
+		}
+
 		public static ResourceManager Instance
 		{
 			get
@@ -35,25 +33,10 @@ namespace Tanks
 		}
 
 		Dictionary<string, Level> levels = new Dictionary<string, Level>();
-		Dictionary<string, VertexShader> vertexShaders = new Dictionary<string, VertexShader>();
-		Dictionary<string, PixelShader> pixelShaders = new Dictionary<string, PixelShader>();
-		Dictionary<string, ShaderResourceView> textures = new Dictionary<string, ShaderResourceView>();
+		Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
 
 		internal void LoadAll()
 		{
-			// shaders
-			foreach (var file in Directory.EnumerateFiles("..\\..\\Shaders\\VertexShaders\\", "*.hlsl"))
-			{
-				var name = Path.GetFileNameWithoutExtension(file);
-
-				vertexShaders[name] = new VertexShader(file);
-			}
-			foreach (var file in Directory.EnumerateFiles("..\\..\\Shaders\\PixelShaders\\", "*.hlsl"))
-			{
-				var name = Path.GetFileNameWithoutExtension(file);
-
-				pixelShaders[name] = new PixelShader(file);
-			}
 			// levels
 			foreach (var file in Directory.EnumerateFiles("..\\resources\\levels\\"))
 			{
@@ -69,21 +52,16 @@ namespace Tanks
 			}
 		}
 
-		private ShaderResourceView LoadTexture(string file)
+		private Texture LoadTexture(string file)
 		{
-			var texture = TextureLoader
-			ShaderResourceView shaderResourceView = ShaderResourceView()
+			return  Texture.FromFile(Renderer.Instance.Device, file);
 		}
 
 		public void Dispose()
 		{
-			foreach (var shader in pixelShaders)
+			foreach (var texture in textures)
 			{
-				shader.Value.Dispose();
-			}
-			foreach (var shader in vertexShaders)
-			{
-				shader.Value.Dispose();
+				texture.Value.Dispose();
 			}
 		}
 

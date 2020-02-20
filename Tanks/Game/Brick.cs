@@ -8,5 +8,9 @@ namespace Tanks.Game
 {
 	class Brick : Block
 	{
+		public Brick()
+		{
+			Texture = ResourceManager.Instance.GetTexture("brick");
+		}
 	}
 }

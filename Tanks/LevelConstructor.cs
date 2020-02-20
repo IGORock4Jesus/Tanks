@@ -52,11 +52,18 @@ namespace Tanks
 			{
 				for (int x = 0; x < level.Width; x++)
 				{
+					if (matching.ContainsKey(level[x, y]) == false)
+						throw new Exception($"Конструктор уравня для элемента '{level[x, y]}' - не реализован!");
+
 					var constructor = matching[level[x, y]];
 					var block = constructor.Construct();
+					if (block == null)
+						continue;
 
 					block.Position = new Vector2(x * blockSize, y * blockSize);
 					block.Size = new Vector2(blockSize, blockSize);
+
+					scene.Add(block);
 				}
 			}
 		}

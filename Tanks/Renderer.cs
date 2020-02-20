@@ -1,21 +1,19 @@
-﻿using SharpDX.Direct3D11;
+﻿using SharpDX;
+using SharpDX.Direct3D9;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Tanks
 {
 	class Renderer:IDisposable
 	{
-		SharpDX.Direct3D11.Device device3d;
-		SharpDX.Direct3D11.DeviceContext deviceContext3d;
+		public int Width { get; private set; }
+		public int Height { get; private set; }
+
+		Direct3D direct;
+		Device device;
 		private Thread thread;
 		private bool enabled;
-		SharpDX.DXGI.SwapChain swapChain;
-		SharpDX.Direct3D11.RenderTargetView renderTargetView;
 
 		static Renderer instance;
 		static object locker = new object();
@@ -36,35 +34,28 @@ namespace Tanks
 			}
 		}
 
-		public Device Device3D => device3d;
+		public Device Device => device;
 
 		public void Initialize(System.Windows.Forms.Control control)
 		{
-			SharpDX.Direct3D11.Device.CreateWithSwapChain(SharpDX.Direct3D.DriverType.Warp, SharpDX.Direct3D11.DeviceCreationFlags.Debug,
-				new SharpDX.DXGI.SwapChainDescription
-				{
-					BufferCount = 1,
-					Flags = SharpDX.DXGI.SwapChainFlags.None,
-					IsWindowed = true,
-					ModeDescription = new SharpDX.DXGI.ModeDescription
-					{
-						Format = SharpDX.DXGI.Format.R8G8B8A8_UNorm,
-						Height = control.ClientSize.Height,
-						RefreshRate = new SharpDX.DXGI.Rational(1, 60),
-						Width = control.ClientSize.Width
-					},
-					OutputHandle = control.Handle,
-					SampleDescription = new SharpDX.DXGI.SampleDescription(1, 0),
-					SwapEffect = SharpDX.DXGI.SwapEffect.Discard,
-					Usage = SharpDX.DXGI.Usage.RenderTargetOutput
-				},
-				out device3d,
-				out swapChain
-			);
-			deviceContext3d = device3d.ImmediateContext;
+			this.Width = control.ClientSize.Width;
+			this.Height = control.ClientSize.Height;
 
-			var backBuffer = swapChain.GetBackBuffer<Texture2D>(0);
-			renderTargetView = new SharpDX.Direct3D11.RenderTargetView(device3d, backBuffer);
+			direct = new Direct3D();
+			device = new Device(direct, 0, DeviceType.Hardware, control.Handle, CreateFlags.HardwareVertexProcessing | CreateFlags.Multithreaded, new PresentParameters
+			{
+				AutoDepthStencilFormat = Format.D24S8,
+				BackBufferCount = 1,
+				BackBufferFormat = Format.A8R8G8B8,
+				BackBufferHeight = control.ClientSize.Height,
+				BackBufferWidth = control.ClientSize.Width,
+				DeviceWindowHandle = control.Handle,
+				EnableAutoDepthStencil = true,
+				SwapEffect = SwapEffect.Discard,
+				Windowed = true
+			});
+
+			device.SetRenderState(RenderState.Lighting, false);
 
 			thread = new Thread(StartRendering);
 			enabled = true;
@@ -75,9 +66,22 @@ namespace Tanks
 		{
 			while (enabled)
 			{
-				deviceContext3d.ClearRenderTargetView(renderTargetView, SharpDX.Color.Black);
+				device.Clear(ClearFlags.All, SharpDX.Color.Black, 1.0f, 0);
+				device.BeginScene();
 
-				swapChain.Present(0, SharpDX.DXGI.PresentFlags.None);
+				Matrix view = Matrix.LookAtLH(
+					new Vector3(Width / 2, Height / 2, 1000.0f),
+					new Vector3(Width / 2, Height / 2, 0.0f),
+					new Vector3(0.0f, -1.0f, 0.0f));
+				device.SetTransform(TransformState.View, view);
+
+				Matrix proj = Matrix.OrthoLH(Width, Height, 1.0f, 10000.0f);
+				device.SetTransform(TransformState.Projection, proj);
+
+				Scene.Instance.Render();
+
+				device.EndScene();
+				device.Present();
 
 				Thread.Sleep(0);
 			}
@@ -94,9 +98,8 @@ namespace Tanks
 				}
 			}
 
-			deviceContext3d.Dispose();
-			device3d.Dispose();
-			swapChain.Dispose();
+			device.Dispose();
+			direct.Dispose();
 		}
 	}
 }

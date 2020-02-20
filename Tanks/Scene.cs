@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tanks.Game;
 
 namespace Tanks
 {
 	public class Scene
 	{
+		#region Singleton
 		static Scene instance;
 		static object locker = new object();
 		public static Scene Instance
@@ -23,9 +26,35 @@ namespace Tanks
 		}
 		Scene() { }
 
+		#endregion
+
+		readonly List<GameObject> gameObjects = new List<GameObject>();
+		
 		internal void Clear()
 		{
-			throw new NotImplementedException();
+			lock (gameObjects)
+			{
+				gameObjects.Clear(); 
+			}
+		}
+
+		internal void Add(GameObject gameObject)
+		{
+			lock (gameObjects)
+			{
+				gameObjects.Add(gameObject);
+			}
+		}
+
+		public void Render()
+		{
+			lock (gameObjects)
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					gameObject.Render();
+				} 
+			}
 		}
 	}
 }

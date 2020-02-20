@@ -20,8 +20,9 @@ namespace Tanks
 		protected override void OnLoad(EventArgs e)
 		{
 			Renderer.Instance.Initialize(this);
+			Screen.Instance.Initialize(ClientSize.Width, ClientSize.Height);
 			ResourceManager.Instance.LoadAll();
-			LevelConstructor.Instance.Construct(ResourceManager.Instance.GetLevel(1.ToString()));
+			LevelConstructor.Instance.Construct(ResourceManager.Instance.GetLevel(2.ToString()));
 		}
 
 		protected override void OnFormClosed(FormClosedEventArgs e)
