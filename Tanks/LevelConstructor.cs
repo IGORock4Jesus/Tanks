@@ -37,7 +37,10 @@ namespace Tanks
 		{
 			{'.', new VoidConstructor() },
 			{'#', new BrickConstructor() },
-			{'@', new ConcreteConstructor() }
+			{'@', new ConcreteConstructor() },
+			{'%', new ForestConstructor() },
+			{'~', new WaterConstructor() },
+			{'-', new IceConstructor() },
 		};
 
 		public void Construct(Level level)

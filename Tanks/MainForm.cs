@@ -22,12 +22,18 @@ namespace Tanks
 			Renderer.Instance.Initialize(this);
 			Screen.Instance.Initialize(ClientSize.Width, ClientSize.Height);
 			ResourceManager.Instance.LoadAll();
-			LevelConstructor.Instance.Construct(ResourceManager.Instance.GetLevel(2.ToString()));
+			LevelConstructor.Instance.Construct(ResourceManager.Instance.GetLevel(28.ToString()));
 		}
 
 		protected override void OnFormClosed(FormClosedEventArgs e)
 		{
 			Renderer.Instance.Dispose();
+		}
+
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+				Close();
 		}
 	}
 }

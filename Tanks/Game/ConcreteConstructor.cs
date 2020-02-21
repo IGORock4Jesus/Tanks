@@ -10,7 +10,10 @@ namespace Tanks.Game
 	{
 		public Block Construct()
 		{
-			return new Concrete();
+			return new Block
+			{
+				Texture = ResourceManager.Instance.GetTexture("stone")
+			};
 		}
 	}
 }

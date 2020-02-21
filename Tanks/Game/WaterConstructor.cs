@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Tanks.Game
 {
-	class Concrete : Block
+	class WaterConstructor : IConstructor
 	{
-		public Concrete()
+		public Block Construct()
 		{
-			Texture = ResourceManager.Instance.GetTexture("stone");
+			return new Block
+			{
+				Texture = ResourceManager.Instance.GetTexture("water")
+			};
 		}
 	}
 }

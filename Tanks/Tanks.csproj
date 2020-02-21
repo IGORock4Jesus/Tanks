@@ -59,13 +59,14 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="Game\Base.cs" />
     <Compile Include="Game\Block.cs" />
-    <Compile Include="Game\Brick.cs" />
     <Compile Include="Game\BrickConstructor.cs" />
-    <Compile Include="Game\Concrete.cs" />
     <Compile Include="Game\ConcreteConstructor.cs" />
+    <Compile Include="Game\ForestConstructor.cs" />
+    <Compile Include="Game\IceConstructor.cs" />
     <Compile Include="Game\IConstructor.cs" />
     <Compile Include="Game\Tank.cs" />
     <Compile Include="Game\VoidConstructor.cs" />
+    <Compile Include="Game\WaterConstructor.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="LevelConstructor.cs" />
     <Compile Include="MainForm.cs">
