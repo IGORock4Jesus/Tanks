@@ -9,9 +9,20 @@ namespace Tanks.Game
 	class Tank : GameObject
 	{
 		private Direction direction;
+		private TankLevel level;
 
-		public int Level { get; }
+		public TankLevel Level
+		{
+			get => level;
+			set
+			{
+				level = value;
+				Controller.GetTexture(this);
+			}
+		}
 		public ITankController Controller { get; }
+		public TankType Type { get; }
+
 		public Direction Direction
 		{
 			get => direction;
@@ -22,12 +33,14 @@ namespace Tanks.Game
 			}
 		}
 
-		public Tank(ITankController controller, int level)
+		public Tank(ITankController controller, TankType tankType, TankLevel level)
 		{
 			if (controller is null)
 				throw new ArgumentNullException(nameof(controller));
 			Controller = controller;
+			Type = tankType;
 			Level = level;
+			Controller.GetTexture(this);
 		}
 
 		internal void Step(Direction direction)

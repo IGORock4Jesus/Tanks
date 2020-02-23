@@ -57,6 +57,15 @@ namespace Tanks
 
 			device.SetRenderState(RenderState.Lighting, false);
 
+			device.SetRenderState(RenderState.AlphaBlendEnable, true);
+			device.SetRenderState(RenderState.AlphaTestEnable, false);
+			device.SetRenderState(RenderState.SourceBlend, Blend.SourceAlpha);
+			device.SetRenderState(RenderState.DestinationBlend, Blend.InverseSourceAlpha);
+
+			//device.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.BlendDiffuseAlpha);
+			//device.SetTextureStageState(0, TextureStage.AlphaArg0, TextureArgument.Current);
+			//device.SetTextureStageState(0, TextureStage.AlphaArg1, TextureArgument.Diffuse);
+
 			thread = new Thread(StartRendering);
 			enabled = true;
 			thread.Start();

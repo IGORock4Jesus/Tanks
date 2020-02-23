@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tanks.Game;
 
 namespace Tanks
@@ -29,12 +30,12 @@ namespace Tanks
 		#endregion
 
 		readonly List<GameObject> gameObjects = new List<GameObject>();
-		
+
 		internal void Clear()
 		{
 			lock (gameObjects)
 			{
-				gameObjects.Clear(); 
+				gameObjects.Clear();
 			}
 		}
 
@@ -50,10 +51,11 @@ namespace Tanks
 		{
 			lock (gameObjects)
 			{
-				foreach (var gameObject in gameObjects)
+				foreach (var gameObject in gameObjects
+					.OrderBy(w => w.Depth.Value))
 				{
 					gameObject.Render();
-				} 
+				}
 			}
 		}
 

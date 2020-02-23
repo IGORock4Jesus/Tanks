@@ -85,17 +85,17 @@ namespace Tanks
 			{
 				Position = new Vector2(12 * BlockSize, 24 * BlockSize),
 				Depth = Depth.Action,
-				Size = new Vector2(BlockSize, BlockSize)*2.0f
+				Size = new Vector2(BlockSize, BlockSize) * 2.0f
 			};
 			scene.Add(flag);
 
 			// demo: add user tank
-			Tank userTank = new Tank(new UserTankController(), 0)
+			Tank userTank = new Tank(new UserTankController(), TankType.Enemy_1, TankLevel.Fast)
 			{
 				Position = new Vector2(8 * BlockSize, 24 * BlockSize),
 				Size = new Vector2(BlockSize, BlockSize) * 2.0f,
 				Depth = Depth.Action,
-				TextureCoords = ResourceManager.Instance.TanksCoords(ResourceManager.TankType.User_1, Direction.Top, TankLevel.Level1, 0)
+				Direction = Direction.Top
 			};
 			scene.Add(userTank);
 		}

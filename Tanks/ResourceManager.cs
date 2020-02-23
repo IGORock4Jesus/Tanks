@@ -7,7 +7,7 @@ using SharpDX.Direct3D9;
 
 namespace Tanks
 {
-	class ResourceManager : IDisposable
+	partial class ResourceManager : IDisposable
 	{
 		ResourceManager() { }
 
@@ -61,16 +61,6 @@ namespace Tanks
 		internal enum Pack
 		{
 			Tanks, Bonuses, Walls, Flags, TankCursors, Protects, ConstructorCursors, Bullets, Generators, FlagExplosions, Explosions, Title
-		}
-		public enum TankType
-		{
-			Enemy_HasBonus,
-			Enemy_0, 
-			Enemy_1, 
-			Enemy_2, 
-			Enemy_3,
-			User_1,
-			User_2
 		}
 
 		/// <summary>

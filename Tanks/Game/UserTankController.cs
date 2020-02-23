@@ -11,7 +11,7 @@ namespace Tanks.Game
 	{
 		public void GetTexture(Tank tank)
 		{
-			tank.TextureCoords = ResourceManager.Instance.TanksCoords(ResourceManager.TankType.User_1, tank.Direction, TankLevel.Level1, 0);
+			tank.TextureCoords = ResourceManager.Instance.TanksCoords(tank.Type, tank.Direction, tank.Level, 0);
 		}
 
 		public void Update(Tank tank, float elapsedTime)
