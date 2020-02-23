@@ -56,5 +56,16 @@ namespace Tanks
 				} 
 			}
 		}
+
+		internal void Update(float elapsedTime)
+		{
+			lock (gameObjects)
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					gameObject.Update(elapsedTime);
+				}
+			}
+		}
 	}
 }

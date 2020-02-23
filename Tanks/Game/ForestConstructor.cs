@@ -12,7 +12,8 @@ namespace Tanks.Game
 		{
 			return new Block
 			{
-				Texture = ResourceManager.Instance.GetTexture("bush")
+				TextureCoords = ResourceManager.Instance.GetWallCoords(ResourceManager.Wall.Forest),
+				Depth=Depth.Covers
 			};
 		}
 	}

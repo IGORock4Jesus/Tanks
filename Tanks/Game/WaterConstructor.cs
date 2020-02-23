@@ -12,7 +12,8 @@ namespace Tanks.Game
 		{
 			return new Block
 			{
-				Texture = ResourceManager.Instance.GetTexture("water")
+				TextureCoords = ResourceManager.Instance.GetWallCoords(ResourceManager.Wall.Water_1),
+				Depth = Depth.Ground
 			};
 		}
 	}

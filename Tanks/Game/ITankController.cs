@@ -1,6 +1,4 @@
-﻿using SharpDX;
-using SharpDX.Direct3D9;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Tanks.Game
 {
-	class Block : GameObject
+	interface ITankController
 	{
-
+		void Update(Tank tank, float elapsedTime);
+		void GetTexture(Tank tank);
 	}
 }

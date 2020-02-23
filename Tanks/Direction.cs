@@ -1,15 +1,14 @@
-﻿using SharpDX;
-using SharpDX.Direct3D9;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tanks.Game
+namespace Tanks
 {
-	class Block : GameObject
-	{
 
+	internal enum Direction
+	{
+		Top, Right, Bottom, Left
 	}
 }

@@ -26,8 +26,6 @@ namespace Tanks
 		private Vector3 size = new Vector3(1.0f);
 		private Vector3 position;
 
-		public Texture Texture { get; set; }
-
 		public Sprite()
 		{
 			vertexBuffer = new VertexBuffer(Renderer.Instance.Device, Marshal.SizeOf<Vertex>() * 4, Usage.Dynamic, VertexFormat.Position | VertexFormat.Texture1, Pool.Default);
@@ -75,8 +73,7 @@ namespace Tanks
 			device.SetStreamSource(0, vertexBuffer, 0, Marshal.SizeOf<Vertex>());
 			device.VertexFormat = VertexFormat.Position | VertexFormat.Texture1;
 			device.Indices = indexBuffer;
-			device.SetTexture(0, Texture);
-			device.SetTransform(TransformState.World, 
+			device.SetTransform(TransformState.World,
 				scaling * rotation * translation);
 			device.DrawIndexedPrimitive(PrimitiveType.TriangleList, 0, 0, 6, 0, 2);
 		}
@@ -106,5 +103,36 @@ namespace Tanks
 				translation = Matrix.Translation(position);
 			}
 		}
+
+		internal static void Render(Vector2 position, float depth, Vector2 size, RectangleF textureCoords)
+		{
+			Vertex[] vertices = new Vertex[]
+			{
+				new Vertex
+				{
+					 position =new Vector3(position, depth),
+					 texel = textureCoords.TopLeft
+				},
+				new Vertex
+				{
+					position = new Vector3(position.X+size.X,position.Y,depth),
+					texel = textureCoords.TopRight
+				},
+				new Vertex
+				{
+					position=new Vector3(position+size,depth),
+					texel   =textureCoords.BottomRight
+				},
+				new Vertex
+				{
+					position=new Vector3(position.X, position.Y+size.Y,depth),
+					texel   =textureCoords.BottomLeft
+				}
+			};
+
+			var device = Renderer.Instance.Device;
+			device.DrawUserPrimitives(PrimitiveType.TriangleFan, 2, vertices);
+		}
+
 	}
 }

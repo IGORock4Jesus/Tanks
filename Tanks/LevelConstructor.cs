@@ -29,6 +29,12 @@ namespace Tanks
 				return instance;
 			}
 		}
+
+		public float BlockSize { get; private set; }
+		public int MinBlockCount { get; private set; }
+		public float MinBlockSize { get; private set; }
+
+
 		LevelConstructor() { }
 
 		#endregion
@@ -49,7 +55,10 @@ namespace Tanks
 			Scene scene = Scene.Instance;
 			scene.Clear();
 
-			float blockSize = Math.Min(screenSize.Width, screenSize.Height) / level.Width;
+			BlockSize = Math.Min(screenSize.Width, screenSize.Height) / level.Width;
+
+			MinBlockCount = level.Width * 2;
+			MinBlockSize = BlockSize / 2.0f;
 
 			for (int y = 0; y < level.Height; y++)
 			{
@@ -63,12 +72,32 @@ namespace Tanks
 					if (block == null)
 						continue;
 
-					block.Position = new Vector2(x * blockSize, y * blockSize);
-					block.Size = new Vector2(blockSize, blockSize);
+					block.Position = new Vector2(x * BlockSize, y * BlockSize);
+					block.Size = new Vector2(BlockSize, BlockSize);
+
 
 					scene.Add(block);
 				}
 			}
+
+			// add flag
+			Flag flag = new Flag
+			{
+				Position = new Vector2(12 * BlockSize, 24 * BlockSize),
+				Depth = Depth.Action,
+				Size = new Vector2(BlockSize, BlockSize)*2.0f
+			};
+			scene.Add(flag);
+
+			// demo: add user tank
+			Tank userTank = new Tank(new UserTankController(), 0)
+			{
+				Position = new Vector2(8 * BlockSize, 24 * BlockSize),
+				Size = new Vector2(BlockSize, BlockSize) * 2.0f,
+				Depth = Depth.Action,
+				TextureCoords = ResourceManager.Instance.TanksCoords(ResourceManager.TankType.User_1, Direction.Top, TankLevel.Level1, 0)
+			};
+			scene.Add(userTank);
 		}
 	}
 }
