@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="UpdateManager.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="LevelConstructor.cpp" />
+    <ClCompile Include="BrickBlockConstructor.cpp" />
+    <ClCompile Include="Depth.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="ConcreteBlockConstructor.cpp" />
+    <ClCompile Include="ForestBlockConstructor.cpp" />
+    <ClCompile Include="IceBlockConstructor.cpp" />
+    <ClCompile Include="VoidBlockConstructor.cpp" />
+    <ClCompile Include="WaterBlockConstructor.cpp" />
+    <ClCompile Include="Flag.cpp" />
+    <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="BulletSpeed.cpp" />
+    <ClCompile Include="UserTankController.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Phisics.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="UpdateManager.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="exceptions.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="TankType.h" />
+    <ClInclude Include="TankLevel.h" />
+    <ClInclude Include="Direction.h" />
+    <ClInclude Include="Walls.h" />
+    <ClInclude Include="ITankController.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="LevelConstructor.h" />
+    <ClInclude Include="IBlockConstructor.h" />
+    <ClInclude Include="BrickBlockConstructor.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Depth.h" />
+    <ClInclude Include="Property.h" />
+    <ClInclude Include="ConcreteBlockConstructor.h" />
+    <ClInclude Include="ForestBlockConstructor.h" />
+    <ClInclude Include="IceBlockConstructor.h" />
+    <ClInclude Include="VoidBlockConstructor.h" />
+    <ClInclude Include="WaterBlockConstructor.h" />
+    <ClInclude Include="Flag.h" />
+    <ClInclude Include="Tank.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="BulletSpeed.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="UserTankController.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="Phisics.h" />
+    <ClInclude Include="GameObjectManager.h" />
+  </ItemGroup>
+</Project>
