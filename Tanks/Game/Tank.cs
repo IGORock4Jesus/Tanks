@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Tanks.Game
 	{
 		private Direction direction;
 		private TankLevel level;
+		Bullet bullet;
+
 
 		public TankLevel Level
 		{
@@ -102,6 +105,29 @@ namespace Tanks.Game
 		public override void Update(float elapsedTime)
 		{
 			Controller.Update(this, elapsedTime);
+		}
+
+		public void Shot()
+		{
+			if (bullet != null)
+				return;
+
+			var b = new Bullet(direction);
+			var pos = Position;
+
+			if (direction == Direction.Top)
+				pos += new Vector2(Size.X / 2.0f - b.Size.X / 2.0f, -b.Size.Y);
+			else if(direction == Direction.Bottom)
+				pos += new Vector2(Size.X / 2.0f - b.Size.X / 2.0f, Size.Y);
+			else if (direction == Direction.Left)
+				pos += new Vector2(-b.Size.X, Size.Y / 2.0f - b.Size.Y / 2.0f);
+			else if (direction == Direction.Right)
+				pos += new Vector2(Size.X, Size.Y / 2.0f - b.Size.Y / 2.0f);
+			
+			b.Position = pos;
+
+			bullet = b;
+			Scene.Instance.Add(bullet);
 		}
 	}
 }

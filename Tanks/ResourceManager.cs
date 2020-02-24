@@ -148,6 +148,18 @@ namespace Tanks
 			return Convert(new RectangleF(x, y, size, size));
 		}
 
+		internal RectangleF GetBulletCoords(Direction direction)
+		{
+			int startX = 944, startY = 128;
+			int size = 8;
+
+			return Convert(new RectangleF(
+				startX + size * (int)direction,
+				startY,
+				size,
+				size));
+		}
+
 		private RectangleF Convert(RectangleF rectangle)
 		{
 			return new RectangleF(

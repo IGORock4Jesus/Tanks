@@ -34,6 +34,10 @@ namespace Tanks.Game
 			{
 				tank.Step(Direction.Left);
 			}
+			else if (input["J"])
+			{
+				tank.Shot();
+			}
 		}
 	}
 }

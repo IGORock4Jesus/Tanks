@@ -64,6 +64,7 @@
     <Compile Include="Game\Base.cs" />
     <Compile Include="Game\Block.cs" />
     <Compile Include="Game\BrickConstructor.cs" />
+    <Compile Include="Game\Bullet.cs" />
     <Compile Include="Game\ConcreteConstructor.cs" />
     <Compile Include="Game\Flag.cs" />
     <Compile Include="Game\ForestConstructor.cs" />

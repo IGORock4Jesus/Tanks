@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Tanks.Game;
 
 namespace Tanks
@@ -30,43 +31,55 @@ namespace Tanks
 		#endregion
 
 		readonly List<GameObject> gameObjects = new List<GameObject>();
+		int needForClear;
+		readonly Queue<GameObject> adds = new Queue<GameObject>();
+
 
 		internal void Clear()
 		{
-			lock (gameObjects)
-			{
-				gameObjects.Clear();
-			}
+			needForClear = 1;
 		}
 
 		internal void Add(GameObject gameObject)
 		{
-			lock (gameObjects)
-			{
-				gameObjects.Add(gameObject);
-			}
+			if (gameObject is null)
+				throw new ArgumentNullException(nameof(gameObject));
+
+			adds.Enqueue(gameObject);
 		}
 
 		public void Render()
 		{
-			lock (gameObjects)
+			foreach (var gameObject in gameObjects
+				.ToList()
+				.OrderBy(w => w.Depth?.Value ?? 0.0f)
+				.ToList())
 			{
-				foreach (var gameObject in gameObjects
-					.OrderBy(w => w.Depth.Value))
-				{
-					gameObject.Render();
-				}
+				gameObject.Render();
 			}
 		}
 
 		internal void Update(float elapsedTime)
 		{
-			lock (gameObjects)
+			if (Interlocked.CompareExchange(ref needForClear, 0, 1) == 1)
 			{
-				foreach (var gameObject in gameObjects)
+				gameObjects.Clear();
+			}
+
+			while (adds.Count != 0)
+			{
+				//lock (gameObjects)
 				{
-					gameObject.Update(elapsedTime);
+					GameObject item = adds.Dequeue();
+					if (item is null)
+						throw new NullReferenceException();
+					gameObjects.Add(item); 
 				}
+			}
+
+			foreach (var gameObject in gameObjects)
+			{
+				gameObject.Update(elapsedTime);
 			}
 		}
 	}
