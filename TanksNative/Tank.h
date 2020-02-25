@@ -22,6 +22,7 @@ class Tank : public GameObject
 	void OnDirectionChanged(Direction direction);
 	void XChanged(float newX);
 	void YChanged(float newY);
+	void Bullet_Destroyed(std::shared_ptr<GameObject>& gameObject);
 
 public:
 	Tank(std::shared_ptr<ITankController> controller, TankType type, TankLevel level);

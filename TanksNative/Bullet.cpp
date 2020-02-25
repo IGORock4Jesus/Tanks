@@ -3,6 +3,7 @@
 #include "ResourceManager.h"
 #include "Log.h"
 #include "Block.h"
+#include "GameObjectManager.h"
 
 
 Bullet::Bullet(Direction direction)
@@ -11,6 +12,11 @@ Bullet::Bullet(Direction direction)
 	SetSize({ LevelConstructor::GetMinBlockSize(),
 		LevelConstructor::GetMinBlockSize() });
 	SetTextureCoords(ResourceManager::GetBulletCoords(direction));
+}
+
+Bullet::~Bullet()
+{
+	Log::WriteLine(L"Bullet is detroyed!");
 }
 
 void Bullet::Update(float elapsedTime)
@@ -27,11 +33,17 @@ void Bullet::Update(float elapsedTime)
 		SetPosition({ GetPosition().x - units, GetPosition().y });
 }
 
-void Bullet::OnCollisionDetected(std::shared_ptr<GameObject>& another)
+void Bullet::OnCollisionDetected(std::shared_ptr<GameObject>& a, std::shared_ptr<GameObject>& b)
 {
-	auto block = std::dynamic_pointer_cast<Block>(another);
+	/*auto block = std::dynamic_pointer_cast<Block>(another);
 	if (block) {
 		Log::WriteLine(L"Bullet is crushed!");
-		block->
+		auto wall = block->GetWall();
+		if(wall == Walls.)
+	}*/
+
+	if (b->GetDepth() == &Depth::Action) {
+		Log::WriteLine(L"Bullet is crushed!");
+		GameObjectManager::Destroy(a);
 	}
 }

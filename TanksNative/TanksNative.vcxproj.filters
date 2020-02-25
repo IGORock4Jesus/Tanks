@@ -10,14 +10,8 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="LevelConstructor.cpp" />
-    <ClCompile Include="BrickBlockConstructor.cpp" />
     <ClCompile Include="Depth.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ConcreteBlockConstructor.cpp" />
-    <ClCompile Include="ForestBlockConstructor.cpp" />
-    <ClCompile Include="IceBlockConstructor.cpp" />
-    <ClCompile Include="VoidBlockConstructor.cpp" />
-    <ClCompile Include="WaterBlockConstructor.cpp" />
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -27,6 +21,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Phisics.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="Block.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResourceManager.h" />
@@ -45,16 +40,9 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="LevelConstructor.h" />
-    <ClInclude Include="IBlockConstructor.h" />
-    <ClInclude Include="BrickBlockConstructor.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Depth.h" />
     <ClInclude Include="Property.h" />
-    <ClInclude Include="ConcreteBlockConstructor.h" />
-    <ClInclude Include="ForestBlockConstructor.h" />
-    <ClInclude Include="IceBlockConstructor.h" />
-    <ClInclude Include="VoidBlockConstructor.h" />
-    <ClInclude Include="WaterBlockConstructor.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Bullet.h" />

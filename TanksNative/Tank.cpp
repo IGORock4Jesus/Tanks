@@ -3,6 +3,7 @@
 #include "LevelConstructor.h"
 #include "Scene.h"
 #include "AnimationManager.h"
+#include "GameObjectManager.h"
 
 
 void Tank::OnLevelChanged(TankLevel level)
@@ -25,6 +26,11 @@ void Tank::XChanged(float newX)
 void Tank::YChanged(float newY)
 {
 	SetPosition({ GetPosition().x, newY });
+}
+
+void Tank::Bullet_Destroyed(std::shared_ptr<GameObject>& gameObject)
+{
+	bullet = nullptr;
 }
 
 Tank::Tank(std::shared_ptr<ITankController> controller, TankType type, TankLevel level)
@@ -97,7 +103,7 @@ void Tank::Shot()
 	if (bullet)
 		return;
 
-	auto b = std::make_shared< Bullet>(_Direction);
+	auto b = std::make_shared<Bullet>(_Direction);
 	auto pos = GetPosition();
 
 	if (_Direction == Direction::Top)
@@ -113,6 +119,7 @@ void Tank::Shot()
 
 	bullet = b;
 	Scene::Add(bullet);
+	GameObjectManager::GetNode(b)->Destroyed.Add(this, &Tank::Bullet_Destroyed);
 }
 
 void Tank::Update(float elapsedTime)

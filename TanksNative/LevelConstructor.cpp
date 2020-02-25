@@ -6,29 +6,24 @@
 #include "Renderer.h"
 #include "Scene.h"
 
-#include "BrickBlockConstructor.h"
-#include "ConcreteBlockConstructor.h"
-#include "ForestBlockConstructor.h"
-#include "IceBlockConstructor.h"
-#include "VoidBlockConstructor.h"
-#include "WaterBlockConstructor.h"
-
 #include "Flag.h"
 #include "Tank.h"
 #include "UserTankController.h"
+#include "Walls.h"
+#include "Block.h"
 
 
 namespace LevelConstructor {
 float blockSize;
 size_t minBlockCount;
 float minBlockSize;
-std::map<char, std::shared_ptr<IBlockConstructor>> constructors{
-	std::make_pair('.', std::shared_ptr<IBlockConstructor>(new VoidBlockConstructor)),
-	std::make_pair('#', std::shared_ptr<IBlockConstructor>(new BrickBlockConstructor)),
-	std::make_pair('@', std::shared_ptr<IBlockConstructor>(new ConcreteBlockConstructor)),						 						
-	std::make_pair('%', std::shared_ptr<IBlockConstructor>(new ForestBlockConstructor)),
-	std::make_pair('~', std::shared_ptr<IBlockConstructor>(new WaterBlockConstructor)),
-	std::make_pair('-', std::shared_ptr<IBlockConstructor>(new IceBlockConstructor))
+std::map<char, Walls> constructors{
+	std::make_pair('.', Walls::Unknown),
+	std::make_pair('#', Walls::Brick_Whole),
+	std::make_pair('@', Walls::Concrete),					 						
+	std::make_pair('%', Walls::Forest),
+	std::make_pair('~', Walls::Water_1),
+	std::make_pair('-', Walls::Ice)
 		};
 
 
@@ -50,7 +45,7 @@ void Construct(std::shared_ptr<Level> level) {
 				throw std::exception((std::string("Конструктор уравня для элемента '") + level->blocks[x][y] + "' - не реализован!").c_str());
 
 			auto& constructor = constructors[level->blocks[x][y]];
-			auto block = constructor->Construct();
+			auto block = std::make_shared<Block>(constructor);
 			if (!block)
 				continue;
 

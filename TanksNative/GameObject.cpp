@@ -15,14 +15,3 @@ void GameObject::Render()
 void GameObject::Update(float elapsedTime)
 {
 }
-
-void GameObject::Destroy()
-{
-	Destroyed(this);
-}
-
-void GameObject::Collision(std::shared_ptr<GameObject>& another)
-{
-	OnCollisionDetected(another);
-	CollisionDetected(this, another);
-}

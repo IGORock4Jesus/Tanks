@@ -156,16 +156,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
-    <ClCompile Include="BrickBlockConstructor.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletSpeed.cpp" />
-    <ClCompile Include="ConcreteBlockConstructor.cpp" />
     <ClCompile Include="Depth.cpp" />
     <ClCompile Include="Flag.cpp" />
-    <ClCompile Include="ForestBlockConstructor.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
-    <ClCompile Include="IceBlockConstructor.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelConstructor.cpp" />
@@ -178,27 +175,20 @@
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="UpdateManager.cpp" />
     <ClCompile Include="UserTankController.cpp" />
-    <ClCompile Include="VoidBlockConstructor.cpp" />
-    <ClCompile Include="WaterBlockConstructor.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Block.h" />
-    <ClInclude Include="BrickBlockConstructor.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletSpeed.h" />
-    <ClInclude Include="ConcreteBlockConstructor.h" />
     <ClInclude Include="Depth.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="exceptions.h" />
     <ClInclude Include="Flag.h" />
-    <ClInclude Include="ForestBlockConstructor.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
-    <ClInclude Include="IBlockConstructor.h" />
-    <ClInclude Include="IceBlockConstructor.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LevelConstructor.h" />
     <ClInclude Include="Phisics.h" />
@@ -215,9 +205,7 @@
     <ClInclude Include="TankType.h" />
     <ClInclude Include="UpdateManager.h" />
     <ClInclude Include="UserTankController.h" />
-    <ClInclude Include="VoidBlockConstructor.h" />
     <ClInclude Include="Walls.h" />
-    <ClInclude Include="WaterBlockConstructor.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

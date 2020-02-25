@@ -13,14 +13,8 @@ class GameObject {
 	PROPERTY(RectF, TextureCoords);
 
 public:
-	Event<GameObject*> Destroyed;
-	Event<GameObject*, std::shared_ptr<GameObject>&> CollisionDetected;
 
 	GameObject();
 	virtual void Render();
 	virtual void Update(float elapsedTime);
-	virtual void OnCollisionDetected(std::shared_ptr<GameObject>& another) {}
-
-	void Destroy();
-	void Collision(std::shared_ptr<GameObject>& another);
 };
