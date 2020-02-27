@@ -4,7 +4,7 @@
 #include <d3dx9.h>
 #include <thread>
 #include "Math.h"
-#include "Scene.h"
+#include "ECS.h"
 
 
 namespace Renderer
@@ -46,7 +46,7 @@ void StartRendering() {
 
 		device->SetFVF(D3DFVF_XYZ | D3DFVF_TEX1);
 
-		Scene::Render();
+		ECS::Render();
 
 		device->EndScene();
 		device->Present(nullptr, nullptr, nullptr, nullptr);
@@ -98,12 +98,14 @@ LPDIRECT3DDEVICE9 GetDevice()
 	return device;
 }
 
-void DrawSprite(const Vector2& position, float depth, const Vector2& size, const RectF& rect) {
+void DrawSprite(const RectF& rect, Depth* depth, const RectF& texCoords) {
+	auto depthValue = depth->GetValue();
+
 	Vertex vertices[]{
-		{ {position, depth}, rect.TopLeft() },
-		{ {position.x + size.x, position.y, depth}, rect.TopRight() },
-		{ {position.x + size.x, position.y + size.y, depth}, rect.BottomRight() },
-		{ {position.x, position.y + size.y, depth}, rect.BottomLeft() },
+		{ { rect.TopLeft(), depthValue}, rect.TopLeft() },
+		{ { rect.TopRight(), depthValue}, rect.TopRight() },
+		{ { rect.BottomRight(), depthValue}, rect.BottomRight() },
+		{ { rect.BottomLeft(), depthValue}, rect.BottomLeft() },
 	};
 	device->DrawPrimitiveUP(D3DPRIMITIVETYPE::D3DPT_TRIANGLEFAN, 2, vertices, sizeof(Vertex));
 }

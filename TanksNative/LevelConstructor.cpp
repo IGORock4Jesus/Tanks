@@ -10,6 +10,8 @@
 #include "Tank.h"
 #include "UserTankController.h"
 #include "Walls.h"
+// components
+#include "BoundsComponent.h"
 #include "Block.h"
 
 
@@ -30,7 +32,7 @@ std::map<char, Walls> constructors{
 void Construct(std::shared_ptr<Level> level) {
 	auto screenSize = Renderer::GetSize();
 
-	Scene::Clear();
+	ECS::Clear();
 
 	blockSize = min(screenSize.x, screenSize.y) / LevelSize;
 
@@ -45,14 +47,16 @@ void Construct(std::shared_ptr<Level> level) {
 				throw std::exception((std::string("Конструктор уравня для элемента '") + level->blocks[x][y] + "' - не реализован!").c_str());
 
 			auto& constructor = constructors[level->blocks[x][y]];
-			auto block = std::make_shared<Block>(constructor);
-			if (!block)
-				continue;
 
-			block->SetPosition({ x * blockSize, y * blockSize });
-			block->SetSize({ blockSize, blockSize });
+			auto entity = ECS::CreateEntity();
 
-			Scene::Add(block);
+			Bounds bounds;
+			bounds.rect = { x * blockSize, y * blockSize, blockSize, blockSize };
+			ECS::Set(entity, bounds);
+
+			Block block;
+			block.Wall = constructor;
+			ECS::Set(entity, block);
 		}
 	}
 

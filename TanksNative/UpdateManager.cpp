@@ -1,7 +1,7 @@
 #include "UpdateManager.h"
 #include <thread>
 #include <Windows.h>
-#include "Scene.h"
+#include "ECS.h"
 #include "AnimationManager.h"
 #include "Input.h"
 
@@ -21,7 +21,7 @@ void StartThread() {
 
 		Input::Update();
 
-		Scene::Update(elapsedTime);
+		ECS::Update(elapsedTime);
 
 		AnimationManager::Update(elapsedTime);		
 

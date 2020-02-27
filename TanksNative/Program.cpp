@@ -5,6 +5,7 @@
 #include "UpdateManager.h"
 #include "LevelConstructor.h"
 #include "Input.h"
+#include "Game.h"
 
 
 int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, LPWSTR, int) {
@@ -27,7 +28,7 @@ int WINAPI wWinMain(HINSTANCE hinstance, HINSTANCE, LPWSTR, int) {
 
 	Renderer::SetTexture(ResourceManager::GetTexture());
 
-	LevelConstructor::Construct(ResourceManager::GetLevel(L"28"));
+	Game::Initialize();
 
 	UpdateManager::Start();
 	Window::Run();

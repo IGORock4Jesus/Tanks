@@ -1,13 +1,15 @@
 #pragma once
 
-#include "GameObject.h"
+#include "ECS.h"
 #include "Walls.h"
 #include "Property.h"
+#include "BoundsComponent.h"
 
+struct Block : ECS::TComponent<Block> {
+	Bounds* bounds;
 
-class Block : public GameObject {
-	PROPERTY_GET(Walls, Wall);
+	Walls Wall;
 
-public:
-	Block(Walls wall);
+	virtual void Initialize(ECS::EntityID entityID) override;
+	virtual void Render(ECS::EntityID entityID) override;
 };
