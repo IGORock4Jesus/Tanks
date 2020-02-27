@@ -7,7 +7,6 @@
 
 class ApplicationImpl {
 	std::vector<IApplicationLayer*> layers;
-	bool enable;
 	HINSTANCE hinstance;
 
 	Window* window;
@@ -16,10 +15,9 @@ class ApplicationImpl {
 
 public:
 	ApplicationImpl()
-		: enable{ false }, hinstance{ GetModuleHandle(nullptr) }
+		: hinstance{ GetModuleHandle(nullptr) }
 	{
 		window = new Window(hinstance, 800, 600);
-		window->Closed.Add([this](Window* w) { this->Close(); });
 		layers.push_back(window);
 
 		renderer = new Renderer(window);
@@ -37,17 +35,8 @@ public:
 
 	void Run()
 	{
-		enable = true;
-		while (enable)
-		{
-			for (auto& layer : layers)
-				layer->Update();
-		}
-	}
-
-	void Close()
-	{
-		enable = false;
+		for (auto& layer : layers)
+			layer->Update();
 	}
 
 	Window* GetWindow() { return window; }
@@ -56,8 +45,10 @@ public:
 };
 
 Application::Application()
+	: enable{ false }
 {
 	impl = new ApplicationImpl();
+	GetWindow()->Closed.Add([this](Window* w) { this->Close(); });
 }
 
 Application::~Application()
@@ -67,12 +58,23 @@ Application::~Application()
 
 void Application::Run()
 {
-	impl->Run();
+	DWORD oldTime = timeGetTime();
+
+	while (enable)
+	{
+		impl->Run();
+
+		DWORD newTime = timeGetTime();
+		float elapsedTime = (newTime - oldTime) * 0.001f;
+		oldTime = newTime;
+
+		OnUpdate(elapsedTime);
+	}
 }
 
 void Application::Close()
 {
-	impl->Close();
+	enable = false;
 }
 
 Window* Application::GetWindow()

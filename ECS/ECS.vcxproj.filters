@@ -11,8 +11,11 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
+    <ClInclude Include="ComponentContainer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="ComponetContainer.cpp" />
+    <ClCompile Include="Component.cpp" />
   </ItemGroup>
 </Project>

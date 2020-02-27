@@ -4,6 +4,8 @@
 
 namespace ECS {
 class System {
+public:
+	virtual void Update(float elapsedTime) {}
 };
 
 template <typename ..._Components>

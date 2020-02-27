@@ -3,8 +3,14 @@
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="ECSRegistrator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="BoundsComponent.h" />
+    <ClInclude Include="ECSRegistrator.h" />
+    <ClInclude Include="TextureComponent.h" />
   </ItemGroup>
 </Project>

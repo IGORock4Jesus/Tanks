@@ -55,19 +55,36 @@ Input::~Input()
 
 void Input::Update()
 {
-	char newKeyState[256];
-	keyboard->GetDeviceState(256, newKeyState);
-
-	if (memcmp(newKeyState, keyState, 256)) {
-		for (size_t i = 0; i < 256; i++)
-		{
-			if (newKeyState[i] != keyState[i]) {
-				if (newKeyState[i] & 0x80)
-					KeyDown(GetName(i));
-				else
-					KeyUp(GetName(i));
-			}
+	try
+	{
+		char newKeyState[256]{ 0 };
+		HRESULT hr = keyboard->GetDeviceState(256, newKeyState);
+		if (hr == DIERR_INPUTLOST || hr == DIERR_NOTACQUIRED) {
+			keyboard->Acquire();
+			hr = keyboard->GetDeviceState(256, newKeyState);
+			if (hr == DIERR_INPUTLOST)
+				return;
 		}
-		memcpy(keyState, newKeyState, 256);
+
+		if (memcmp(newKeyState, keyState, 256)) {
+			for (size_t i = 0; i < 256; i++)
+			{
+				if (newKeyState[i] != keyState[i]) {
+					if (newKeyState[i] & 0x80)
+						KeyDown(GetName(i));
+					else
+						KeyUp(GetName(i));
+				}
+			}
+			memcpy(keyState, newKeyState, 256);
+		}
+	}
+	catch (const std::exception & ex)
+	{
+		OutputDebugStringA(ex.what());
+		OutputDebugStringA("\r\n");
+	}
+	catch (...) {
+		OutputDebugStringA("Input::Update() - raised an unknown exception.\r\n");
 	}
 }

@@ -140,8 +140,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ECSRegistrator.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.vcxproj">
@@ -152,7 +154,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoundsComponent.h" />
+    <ClInclude Include="ECSRegistrator.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="TextureComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

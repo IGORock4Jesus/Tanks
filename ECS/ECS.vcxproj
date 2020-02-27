@@ -151,6 +151,7 @@
     <ClInclude Include="ArgumentException.h" />
     <ClInclude Include="ArgumentNullException.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentContainer.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ECS_API.h" />
     <ClInclude Include="Entity.h" />
@@ -160,6 +161,8 @@
     <ClInclude Include="SystemManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponetContainer.cpp" />
     <ClCompile Include="EntityManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

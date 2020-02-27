@@ -10,6 +10,10 @@ class Input;
 class APPLICATION_API Application
 {
 	ApplicationImpl* impl;
+	bool enable;
+
+protected:
+	virtual void OnUpdate(float elapsedTime) {}
 
 public:
 	Application();

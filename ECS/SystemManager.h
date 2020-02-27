@@ -18,6 +18,12 @@ public:
 		systems.push_back(system);
 	}
 
+	void Update(float elapsedTime) {
+		for (auto& s : systems) {
+			s->Update(elapsedTime);
+		}
+	}
+
 	/*template <typename _System>
 	_System* Get() {
 		static_assert(std::is_base_of_v<System, _System>, "Система должна быть наследована от класса System, точнее от его реализации TSystem.");
